@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <title>ARMAN - Analytics & Relationship Manager</title>
+
+  <!-- Favicons -->
+  <link href="{% static 'img/arman-logo.png' %}" rel="icon">
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <!--external css-->
+  <link href="{% static 'lib/font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style-responsive.css' %}" rel="stylesheet">
+  
+</head>
+
+<body>
+  <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+  <div id="login-page">
+    <div class="container">
+      <form class="form-login" method="post">
+         {% csrf_token %}
+        <h2 class="form-login-heading">sign in now</h2>
+        <div class="login-wrap">
+          <input type="text" name="username" class="form-control" placeholder="User ID">
+          <br>
+          <input type="password" name="password" class="form-control" placeholder="Password">
+          <br>
+           {% if messages %}
+              <ul class="messages">
+                {% for message in messages %}
+                <font color="red"><li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li></font>
+                {% endfor %}
+              </ul>
+            {% endif %}    
+          <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
+          <hr>
+          
+      </form>
+    </div>
+  </div>
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
+  <!--BACKSTRETCH-->
+  <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+  <script type="text/javascript" src="{% static 'lib/jquery.backstretch.min.js' %}"></script>
+  <script>
+    $.backstretch("img/login-bg-new.png", {
+      speed: 500
+    });
+  </script>
+</body>
+
+</html>
