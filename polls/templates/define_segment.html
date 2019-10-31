@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{% load_static %}
+{% load static %}
 
+{% block content %}
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -291,13 +292,16 @@
                     <div class="input-group bootstrap-timepicker">
                       <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
-                                style="width: 300%">
+                                style="width: 300%" href="{% url 'polls:definesegment' %}">
                         --Choose--                          
                         <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Dropdown link</a></li>
-                            <li><a href="#">Dropdown link</a></li>
+                            <!-- <li><a href="#"></a></li> -->
+                               {% for table_name in obj %}
+                                <option>{{ table_name.table_name }}
+                              {% endfor %}
+                            <!-- <li><a href="#">Dropdown link</a></li> -->
                         </ul>
                       </div>
                     </div>
@@ -381,6 +385,7 @@
     </footer>
     <!--footer end-->
   </section>
+   {% endblock %}
   <!-- js placed at the end of the document so the pages load faster -->
   <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>

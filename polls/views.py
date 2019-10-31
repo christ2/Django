@@ -8,8 +8,10 @@ from django.utils import timezone
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
+from django.template.loader import render_to_string
 
-from .models import Choice, Question
+from .models import Choice, Question, TableAll
+# import cx_Oracle
 
 def login_view(request):
     if request.method == 'POST':
@@ -17,11 +19,11 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                # messages.info(request, f"You are now logged in as {username}")
-                return redirect('/home/')
+            role = form.cleaned_data.get('role')
+            user = authenticate(username=username, password=password)           
+            if user is not None:   
+                login(request, user)                                            
+                return redirect('/home/')                                                  
             else:
                 messages.error(request, "Invalid username or password!")
         else:
@@ -30,6 +32,34 @@ def login_view(request):
     return render(request = request,
                     template_name = "login.html",
                     context={"form":form})
+
+
+def list_all_table(request):    
+    obj = TableAll.objects.all()
+    context = {
+        'obj' : obj
+    }
+    return render(request,'define_segment.html',context)
+    # dsn_tns = cx_Oracle.makedsn('10.20.214.198', '1527', sid='dicb') 
+    # conn = cx_Oracle.connect(user=r'icb', password='devicb', dsn=dsn_tns) 
+    # c = conn.cursor()
+    # c.execute('select table_name from (select alt.*, rownum r from all_tables alt) where r > 19 and r < 32') 
+    # for row in c:
+    #     objectlist = row[0]
+    #     obj = objectlist.split(',')
+    #     objek = '['+ obj + ']' + row[2].split("delimiter")      
+    #     context = {
+    #         'tablename':objectlist[]
+    #     }
+    # return render(request,'define_segment.html',context)
+        # obj = repr(objectlist)
+        # # objek = dict.fromkeys(objectlist)
+        # context = obj        
+    # obj = TableAll.objects.all()
+    # context = {
+    #     'datatable' : obj.table_name
+    # }
+    # return render(request,'define_segment.html',context)
 
 def index_view(request):
     return render(request, 'index.html')
@@ -46,15 +76,12 @@ def lockscreen(request):
 def createsegment(request):
     return render(request, 'create_segment.html')
 
-def unlock(request):
-    return render(request, 'unlock.html')
-
-
+def manageuser(request):
+    return render(request, 'manage_user.html')
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'detail.html', {'question': question})
-
 
 def results(request, question_id):
     response = "You're looking at the results of question %s."
