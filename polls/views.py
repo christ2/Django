@@ -30,6 +30,12 @@ def login_view(request):
                 elif role == 'Admin':
                     login(request, user)
                     return redirect('/manageuser/')
+                elif role == 'Manager':
+                    login(request, user)
+                    return redirect('/approvallist/')
+                elif role == 'Segment Manager':
+                    login(request, user)
+                    return redirect('/approvallist/')
             else:
                 messages.error(request, "Invalid username or password!")
         else:
@@ -85,6 +91,19 @@ def createsegment(request):
 
 def manageuser(request):
     return render(request, 'manage_user.html')
+
+def approvallist(request):
+    return render(request, 'approval_list.html')
+
+def approvalhistory(request):
+    return render(request, 'approval_history.html')
+
+
+
+
+
+
+
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
