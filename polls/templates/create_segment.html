@@ -54,7 +54,7 @@
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
       </div>
       <!--logo start-->
-      <a href="index.html" class="logo"><b>AR<span>MAN</span></b></a>
+      <a href="{% url 'polls:indexing' %}" class="logo"><b>AR<span>MAN</span></b></a>
       <!--logo end-->
       <div class="nav notify-row" id="top_menu">
         <!--  notification start -->
@@ -191,7 +191,7 @@
           <p class="centered"><a href="{% url 'polls:profile'%}"><img src="{% static 'img/ui-sam.jpg' %}" class="img-circle" width="80"></a></p>
           <h5 class="centered">{{request.user.username}}</h5>
           <li class="mt">
-            <a href="index.html">
+            <a href="{% url 'polls:indexing' %}">
               <i class="fa fa-dashboard"></i>
               <span>Dashboard</span>
               </a>

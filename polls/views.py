@@ -9,31 +9,38 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.template.loader import render_to_string
+from django.contrib.auth.models import User
 
 from .models import Choice, Question, TableAll
 # import cx_Oracle
 
 def login_view(request):
-    if request.method == 'POST':
+    if request.method == 'POST':         
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            role = form.cleaned_data.get('role')
-            user = authenticate(username=username, password=password)           
-            if user is not None:   
-                login(request, user)                                            
-                return redirect('/home/')                                                  
+            guest = User.objects.get(username=username)
+            role = guest.role
+            user = authenticate(username=username, password=password)  
+            if user is not None: 
+                if role == 'Business Analyst':
+                    login(request, user)
+                    return redirect('/home/')
+                elif role == 'Admin':
+                    login(request, user)
+                    return redirect('/manageuser/')
             else:
                 messages.error(request, "Invalid username or password!")
         else:
             messages.error(request, "Invalid username or password!")
     form = AuthenticationForm()
-    return render(request = request,
-                    template_name = "login.html",
-                    context={"form":form})
-
-
+    return render(request,"login.html",{"form":form})
+    # dsn_tns = cx_Oracle.makedsn('10.20.214.198', '1527', sid='dicb') 
+    # conn = cx_Oracle.connect(user=r'icb', password='devicb', dsn=dsn_tns) 
+    # c = conn.cursor() 
+    # c.execute("select role from auth_user where username = '"+username+"'")
+      
 def list_all_table(request):    
     obj = TableAll.objects.all()
     context = {
