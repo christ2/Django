@@ -26,9 +26,9 @@ class Migration(migrations.Migration):
         ),
         migrations.CreateModel(
             name='TableAll',
-            fields=[
+            fields=[                
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('table_name', models.CharField(max_length=250)),
+                ('table_name', models.CharField(max_length=250)),                
             ],
         ),
         migrations.CreateModel(
