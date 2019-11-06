@@ -42,10 +42,11 @@ def login_view(request):
             messages.error(request, "Invalid username or password!")
     form = AuthenticationForm()
     return render(request,"login.html",{"form":form})
+    # import cx_Oracle
     # dsn_tns = cx_Oracle.makedsn('10.20.214.198', '1527', sid='dicb') 
     # conn = cx_Oracle.connect(user=r'icb', password='devicb', dsn=dsn_tns) 
     # c = conn.cursor() 
-    # c.execute("select role from auth_user where username = '"+username+"'")
+    # c.execute("insert query here")
       
 def list_all_table(request):    
     obj = TableAll.objects.all()
@@ -65,14 +66,16 @@ def list_all_table(request):
     #         'tablename':objectlist[]
     #     }
     # return render(request,'define_segment.html',context)
-        # obj = repr(objectlist)
-        # # objek = dict.fromkeys(objectlist)
-        # context = obj        
+    #     obj = repr(objectlist)
+    #     # objek = dict.fromkeys(objectlist)
+    #     context = obj        
     # obj = TableAll.objects.all()
     # context = {
     #     'datatable' : obj.table_name
     # }
     # return render(request,'define_segment.html',context)
+
+
 
 def index_view(request):
     return render(request, 'index.html')
