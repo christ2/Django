@@ -12,7 +12,7 @@ from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 
 from .models import Choice, Question, TableAll
-# import cx_Oracle
+from collections import ChainMap
 
 def login_view(request):
     if request.method == 'POST':         
@@ -42,18 +42,36 @@ def login_view(request):
             messages.error(request, "Invalid username or password!")
     form = AuthenticationForm()
     return render(request,"login.html",{"form":form})
-    # import cx_Oracle
-    # dsn_tns = cx_Oracle.makedsn('10.20.214.198', '1527', sid='dicb') 
-    # conn = cx_Oracle.connect(user=r'icb', password='devicb', dsn=dsn_tns) 
-    # c = conn.cursor() 
-    # c.execute("insert query here")
-      
-def list_all_table(request):    
-    obj = TableAll.objects.all()
-    context = {
-        'obj' : obj
-    }
-    return render(request,'define_segment.html',context)
+
+
+def makeDictFactory(cursor):
+    columnNames = [d[0] for d in cursor.description]
+    def createRow(*args):
+        return dict(zip(columnNames, args))
+    return createRow
+
+def list_all_table(request):
+    import cx_Oracle
+    dsn_tns = cx_Oracle.makedsn('10.20.214.198', '1527', sid='dicb') 
+    conn = cx_Oracle.connect(user=r'icb', password='devicb', dsn=dsn_tns) 
+    c = conn.cursor() 
+    c.execute("select table_name from all_tables")
+    c.rowfactory = makeDictFactory(c)
+    database_table = c.fetchall()  
+    return render(request,'define_segment.html',database_table)
+    # database_table = c.fetchall()    
+    # context = {
+    #     data_table
+    #     # database_table
+    # }
+    
+
+    # obj = TableAll.objects.all()
+    
+    # context = {
+    #     'obj' : obj
+    # }
+    # return render(request,'define_segment.html',context)
     # dsn_tns = cx_Oracle.makedsn('10.20.214.198', '1527', sid='dicb') 
     # conn = cx_Oracle.connect(user=r'icb', password='devicb', dsn=dsn_tns) 
     # c = conn.cursor()
@@ -74,7 +92,6 @@ def list_all_table(request):
     #     'datatable' : obj.table_name
     # }
     # return render(request,'define_segment.html',context)
-
 
 
 def index_view(request):

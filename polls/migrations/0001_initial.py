@@ -32,6 +32,18 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='DataTab',
+            fields=[                
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('data_name', models.CharField(max_length=250)),                
+            ],
+        ),
+        migrations.AddField(
+            model_name='datatab',
+            name='tableall',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='templates.TableAll'),
+        ),
+        migrations.CreateModel(
             name='Choice',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),

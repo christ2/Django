@@ -293,8 +293,8 @@
                       <div class="btn-group">
                             <select style="width:425px;background-color:white;height:30px;font-color:red;text-align-last:center;">              
                             <!-- <li><a href="#"></a></li> -->
-                               {% for table_name in obj %}
-                                <option>{{ table_name.table_name }}
+                               {% for table in TABLE_NAME %}
+                                <option>{{ table.TABLE_NAME }}
                               {% endfor %}                          
                             <!-- <li><a href="#">Dropdown link</a></li> -->
                             </option>
@@ -310,9 +310,9 @@
                        <div class="btn-group">
                             <select style="width:425px;background-color:white;height:30px;font-color:red;text-align-last:center;">              
                             <!-- <li><a href="#"></a></li> -->
-                               {% for table_name in obj %}
+                               <!-- {% for table_name in obj %}
                                 <option>{{ table_name.table_name }}
-                              {% endfor %}                          
+                              {% endfor %}                           -->
                             <!-- <li><a href="#">Dropdown link</a></li> -->
                             </option>
                             </select>                    
@@ -321,15 +321,15 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="control-label col-md-3">Column Name</label>
+                  <label class="control-label col-md-3">Column Name</label> 
                   <div class="col-md-4">
                     <div class="input-group bootstrap-timepicker">
                        <div class="btn-group">
                             <select style="width:425px;background-color:white;height:30px;font-color:red;text-align-last:center;">              
                             <!-- <li><a href="#"></a></li> -->
-                               {% for table_name in obj %}
+                              <!--  {% for table_name in obj %}
                                 <option>{{ table_name.table_name }}
-                              {% endfor %}                          
+                              {% endfor %}    -->                       
                             <!-- <li><a href="#">Dropdown link</a></li> -->
                             </option>
                             </select>                    
@@ -344,9 +344,9 @@
                        <div class="btn-group">
                             <select style="width:425px;background-color:white;height:30px;font-color:red;text-align-last:center;">              
                             <!-- <li><a href="#"></a></li> -->
-                               {% for table_name in obj %}
+                              <!--  {% for table_name in obj %}
                                 <option>{{ table_name.table_name }}
-                              {% endfor %}                          
+                              {% endfor %}     -->                      
                             <!-- <li><a href="#">Dropdown link</a></li> -->
                             </option>
                             </select>                    

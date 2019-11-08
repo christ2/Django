@@ -26,13 +26,13 @@ class Choice(models.Model):
 class TableAll(models.Model):
     table_name = models.CharField(max_length=250)
 
-class UserDetail(models.Model):
-    division = models.CharField(max_length=250)
-    description = models.CharField(max_length=250)
-    address = models.CharField(max_length=250)
-    phone = models.CharField(max_length=250)
-    cell = models.CharField(max_length=250)
-    email = models.CharField(max_length=250)
+# class UserDetail(models.Model):
+#     division = models.CharField(max_length=250)
+#     description = models.CharField(max_length=250)
+#     address = models.CharField(max_length=250)
+#     phone = models.CharField(max_length=250)
+#     cell = models.CharField(max_length=250)
+#     email = models.CharField(max_length=250)
 
 def was_published_recently(self):
     now = timezone.now()
